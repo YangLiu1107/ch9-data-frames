@@ -15,7 +15,7 @@ is.data.frame(USPersonalExpenditure)
 New_USPE <- data.frame(USPersonalExpenditure)
 
 # What are the column names of your dataframe?
-
+colnames(New_USPE)
 
 ## Consider: why are they so strange? Think about whether you could use a number 
 ## like 1940 with dollar notation!
@@ -30,15 +30,18 @@ New_USPE$category <- rownames(New_USPE)
 care_1940 <- New_USPE['Personal Care', 'x1940']
 
 # How much money was spent on Food and Tobacco in 1960?
-
+food_1960 <- New_USPE['Food and Tobacco', 'X1960']
 
 # What was the highest expenditure category in 1960?
-
+highest_1960 <- New_USPE$category[New_USPE$X1960 == max(New_USPE$X1960)]
 
 # Define a function `lowest_category` that takes in a year as a parameter, and
 # returns the lowest spending category of that year
-
+lowest_category <- function(year) {
+  col <- paste0('X', year)
+  New_USPE$category[New_USPE[, col] == min(New_USPE[, col])]
+}
 
 # Using your function, determine the lowest spending category of each year
 # Hint: use the `sapply()` function to apply your function to a vector of years
-
+lowest <- sapply(seq(1940, 1960, 5), lowest_category)
